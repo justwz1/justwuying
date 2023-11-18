@@ -21,6 +21,9 @@ class BookInfo(models.Model):
     # id
     name = models.CharField(max_length=10)
 
+    def __str__(self):
+        return self.name
+
 
 # 人物 先复制过来
 # 准备人物列表信息的模型类
