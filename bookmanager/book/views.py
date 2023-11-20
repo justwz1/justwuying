@@ -28,5 +28,5 @@ def index(request):
     context = {
         'name': '马上双11, 点击有惊喜'
     }
-
+    
     return render(request, 'book/index.html', context=context)
