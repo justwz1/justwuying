@@ -21,14 +21,51 @@ from django.db import models
             
 """
 
-class Bookinfo (models.Model):
 
-    name=models.CharField(max_length=10,unique=True)
-    pub_data=models.DateField(null=True)
-    readcount=models.IntegerField(default=0)
-    commentcount=models.IntegerField(default=0)
-    is_delete=models.BooleanField(default=False)
+class BookInfo(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+    pub_date = models.DateField(null=True)
+    readcount = models.IntegerField(default=0)
+    commentcount = models.IntegerField(default=0)
+    is_delete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
-        db_table='bookinfo'
-        verbose_name='书籍管理'
+        db_table = 'bookinfo'
+        verbose_name = '书籍管理'
+
+
+class PeopleInfo(models.Model):
+    # 定义一个有序字典
+    GENDER_CHOICE = (
+        (1, 'male'),
+        (2, 'female')
+    )
+
+    name = models.CharField(max_length=10, unique=True)
+    gender = models.SmallIntegerField(choices=GENDER_CHOICE, default=1)
+    description = models.CharField(max_length=100, null=True)
+    is_delete = models.BooleanField(default=False)
+
+    # 外键
+    # 系统会自动为外健添加 _id
+
+    # 外健的级联操作
+    # 主表和从表
+    # 1 对多
+    # 书籍 对人物
+    # set NULL
+    # 抛出异常 不让删除
+    # 级联删除
+
+    book = models.ForeignKey(BookInfo, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'peopleinfo'
+
+    def __str__(self):
+        return self.name
+
+
